@@ -40,7 +40,7 @@ Iniziamo usando **Azure AI Document Intelligence Studio** e il modello di lettur
 1. In alto a sinistra, selezionare **Esegui analisi**.
 1. Al termine dell'analisi, il testo estratto dall'immagine viene visualizzato a destra nella scheda **Content**. Esaminare questo testo e confrontarlo con il testo nell'immagine originale per valutarne l'accuratezza.
 1. Selezionare la scheda **Result**. Questa scheda visualizza il codice JSON estratto. 
-1. Scorrere fino alla fine del codice JSON nella scheda **Result**. Si noti che il modello di lettura ha rilevato la lingua di ogni intervallo. La maggior parte degli intervalli è in tedesco (codice lingua `de`) ma è possibile trovare altri codici lingua negli intervalli (ad esempio Inglese - codice lingua `en` - in uno degli ultimi intervalli).
+1. Scorrere fino alla fine del codice JSON nella scheda **Result**. Notare che il modello di lettura ha rilevato la lingua di ogni intervallo indicato da `locale`. La maggior parte degli intervalli è in tedesco (codice lingua `de`) ma è possibile trovare altri codici lingua negli intervalli (ad esempio Inglese - codice lingua `en` - in uno degli ultimi intervalli).
 
     ![Screenshot che mostra il rilevamento della lingua per due intervalli di risultati dal modello di lettura in Informazioni sui documenti di Azure AI Studio.](../media/language-detection.png#lightbox)
 
