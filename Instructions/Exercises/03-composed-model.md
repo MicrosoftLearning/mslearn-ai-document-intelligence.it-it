@@ -49,14 +49,14 @@ Per creare un modello composto, è prima necessario creare due o più modelli pe
 1. Nella casella di testo **Nome del progetto** digitare **1040 Forms** e quindi selezionare **Continua**.
 1. Nella pagina **Configura risorsa servizio** nell'elenco a discesa **Sottoscrizione** selezionare la sottoscrizione di Azure.
 1. Nell'elenco a discesa **Gruppo di risorse**, selezionare **DocumentIntelligenceResources&lt;xxxx&gt;** creato automaticamente.
-1. Nell'elenco a discesa **Document Intelligence di Azure AI o Risorsa del servizio di Azure AI**, selezionare **DocumentIntelligence&lt;xxxx&gt;**.
-1. Nell'elenco a discesa **Versione API**, accertarsi che l'opzione **2023-10-31-preview** sia selezionata, quindi selezionare **Continua**.
+1. Nell'elenco a discesa **Informazioni sui documenti o Risorsa di Servizio cognitivo** selezionare **DocumentIntelligence&lt;xxxx&gt;**.
+1. Nell'elenco a discesa **Versione API** accertarsi che l'opzione **2024-07-31 (Anteprima)** sia selezionata, quindi selezionare **Continua**.
 1. Nella pagina **Connetti origine dati training**, nell'elenco a discesa **Sottoscrizione**, selezionare la sottoscrizione di Azure.
 1. Nell'elenco a discesa **Gruppo di risorse**, selezionare **DocumentIntelligenceResources&lt;xxxx&gt;**.
 1. Nell'elenco a discesa **Account di archiviazione** selezionare l'unico account di archiviazione elencato. Se nella sottoscrizione sono presenti più account di archiviazione, scegliere quello che inizia con *docintelstorage*
 1. Nell'elenco a discesa **Contenitore BLOB** selezionare **1040examples** e quindi selezionare **Continua**.
 1. Nella pagina **Rivedi e crea** selezionare **Crea progetto**.
-1. Selezionare **Esegui layout** nella finestra popup *Avvia etichettatura ora* e attendere il completamento dell'analisi.
+1. Selezionare **Esegui ora** in *Esegui layout* nella finestra popup *Avvia etichettatura ora* e attendere il completamento dell'analisi.
 
 ## Assegnare un'etichetta al modello personalizzato 1040 Forms
 
@@ -74,7 +74,7 @@ A questo punto, assegnare un'etichetta ai campi nei moduli di esempio:
 1. In alto a destra nella pagina, selezionare **+ Aggiungi un campo**, quindi selezionare **Campo**.
 1. Digitare **State** e quindi premere *INVIO*.
 1. Nel documento selezionare **CA** e quindi **State**.
-1. Ripetere il processo di etichettatura per i moduli rimanenti nell'elenco a sinistra usando le etichette create. Assegnare un'etichetta agli stessi quattro campi: *FirstName*, *LastName*, *City* e *State*.
+1. Ripetere il processo di etichettatura per i moduli rimanenti nell'elenco a sinistra usando le etichette create. Assegnare un'etichetta agli stessi quattro campi: *FirstName*, *LastName*, *City* e *State*. Si noti che uno dei documenti non dispone di dati sulla città o sullo stato.
 
 > **IMPORTANTE** Per gli scopi di questo esercizio vengono usati solo cinque moduli di esempio e vengono etichettati solo quattro campi. Nei modelli reali è consigliabile usare il maggior numero possibile di esempi per ottimizzare l'accuratezza e l'attendibilità delle previsioni. È anche consigliabile assegnare un'etichetta a tutti i campi disponibili nei moduli, anziché solo a quattro campi.
 
@@ -82,7 +82,7 @@ A questo punto, assegnare un'etichetta ai campi nei moduli di esempio:
 
 Dopo aver assegnato un'etichetta ai moduli di esempio, è possibile eseguire il training del primo modello personalizzato:
 
-1. In Informazioni sui documenti di Azure AI Studio, selezionare **Esegui training**.
+1. In Informazioni sui documenti di Azure AI Studio, in alto a destra nella schermata selezionare **Eseguire il training**.
 1. Nella finestra di dialogo **Esegui il training di un modello** nella casella di testo **ID modello** digitare **1040FormsModel**.
 1. Nell'elenco a discesa **Modalità di compilazione** selezionare **Modello** e quindi selezionare **Eseguire il training**. 
 1. Nella finestra di dialogo **Training in corso** selezionare **Vai a Modelli**.
@@ -96,14 +96,15 @@ A questo punto, è necessario creare un secondo modello di cui verrà eseguito i
 1. Nella casella di testo **Nome del progetto** digitare **1099 Forms** e quindi selezionare **Continua**.
 1. Nella pagina **Configura risorsa servizio** nell'elenco a discesa **Sottoscrizione** selezionare la sottoscrizione di Azure.
 1. Nell'elenco a discesa **Gruppo di risorse**, selezionare **DocumentIntelligenceResources&lt;xxxx&gt;**.
-1. Nell'elenco a discesa **Document Intelligence di Azure AI o Risorsa del servizio di Azure AI**, selezionare **DocumentIntelligence&lt;xxxx&gt;**.
-1. Nell'elenco a discesa **Versione API**, accertarsi che l'opzione **20223-10-31-preview** sia selezionata, quindi selezionare **Continua**.
+1. Nell'elenco a discesa **Informazioni sui documenti o Risorsa di Servizio cognitivo** selezionare **DocumentIntelligence&lt;xxxx&gt;**.
+1. Nell'elenco a discesa **Versione API** accertarsi che l'opzione **2024-07-31 (Anteprima)** sia selezionata, quindi selezionare **Continua**.
 1. Nella pagina **Connetti origine dati training**, nell'elenco a discesa **Sottoscrizione**, selezionare la sottoscrizione di Azure.
 1. Nell'elenco a discesa **Gruppo di risorse**, selezionare **DocumentIntelligenceResources&lt;xxxx&gt;**.
 1. Nell'elenco a discesa **Account di archiviazione** selezionare l'unico account di archiviazione elencato.
 1. Nell'elenco a discesa **Contenitore BLOB** selezionare **1099examples** e quindi selezionare **Continua**.
 1. Nella pagina **Rivedi e crea** selezionare **Crea progetto**.
-1. Selezionare **Esegui layout** nella finestra popup *Avvia etichettatura ora* e attendere il completamento dell'analisi.
+1. Selezionare il pulsante a discesa per **Esegui layout** e selezionare **Documenti non analizzati**.
+1. Attendere il completamento dell'analisi.
 
 ## Assegnare un'etichetta al modello personalizzato 1099 Forms
 
@@ -121,31 +122,24 @@ Assegnare ora un'etichetta ai moduli di esempio con alcuni campi:
 1. In alto a destra nella pagina, selezionare **+ Aggiungi un campo**, quindi selezionare **Campo**.
 1. Digitare **State** e quindi premere *INVIO*.
 1. Nel documento selezionare **CT** e quindi **State**.
-1. Ripetere il processo di assegnazione dell'etichetta per i moduli rimanenti nell'elenco a sinistra. Assegnare un'etichetta agli stessi quattro campi: *FirstName*, *LastName*, *City* e *State*.
+1. Ripetere il processo di assegnazione dell'etichetta per i moduli rimanenti nell'elenco a sinistra. Assegnare un'etichetta agli stessi quattro campi: *FirstName*, *LastName*, *City* e *State*. Si noti che due documenti non dispongono di dati relativi ai nomi da etichettare.
 
 ## Eseguire il training del modello personalizzato 1099 Forms
 
 È ora possibile eseguire il training del secondo modello personalizzato:
 
-1. In Informazioni sui documenti di Azure AI Studio, selezionare **Esegui training**.
+1. In Informazioni sui documenti di Azure AI Studio, in alto a destra nella schermata selezionare **Eseguire il training**.
 1. Nella finestra di dialogo **Esegui il training di un modello** nella casella di testo **ID modello** digitare **1099FormsModel**.
 1. Nell'elenco a discesa **Modalità di compilazione** selezionare **Modello** e quindi selezionare **Eseguire il training**.
 1. Nella finestra di dialogo **Training in corso** selezionare **Vai a Modelli**.
 1. Il processo di training potrebbe richiedere alcuni minuti. Aggiornare occasionalmente il browser fino a quando entrambi i modelli non visualizzano lo stato **riuscito**.
 
-## Creare e assemblare un modello composto
+## Usare il modello
 
-I due modelli personalizzati, che analizzano i moduli fiscali 1040 e 1099, sono ora completi. È possibile procedere con la creazione del modello composto:
+Ora che il modello è completo, è possibile testarlo con un modulo di esempio:
 
-1. Nella pagina Modelli di Informazioni sui documenti di Azure AI selezionare **sia 1040FormsModel** che **1099FormsModel**.
-1. Nella parte superiore dell'elenco dei modelli selezionare **Componi**.
-1. Nella finestra di dialogo **Componi un nuovo modello** nella casella di testo **ID modello** digitare **TaxFormsModel** e quindi selezionare **Componi**. Informazioni sui documenti di Azure AI crea il modello composto e lo visualizza nell'elenco dei modelli personalizzati:
-
-## Usare il modello composto
-
-Ora che il modello composto è completo, è possibile testarlo con un modulo di esempio:
-
-1. In Azure AI Document Intelligence Studio, selezionare la pagina **Test**, quindi selezionare il modulo **TaxFormsModel** dal menu a discesa.
+1. In Informazioni sui documenti di Azure AI Studio selezionare la pagina **Modelli** e selezionare **1040FormsModel**.
+1. Selezionare **Verifica**.
 1. Selezionare **Cerca file**, quindi passare al percorso in cui è stato clonato il repository.
 1. Selezionare **03-composed-model/trainingdata/TestDoc/f1040_7.pdf**, quindi selezionare **Apri**.
 1. Selezionare **Esegui analisi**. Informazioni sui documenti di Azure AI analizza il modulo usando il modello composto.

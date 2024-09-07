@@ -14,7 +14,7 @@ Prima di poter chiamare il servizio Informazioni sui documenti di Azure AI, è n
 
 1. In una scheda del browser, aprire il portale di Azure all'indirizzo [https://portal.azure.com](https://portal.azure.com?azure-portal=true) e accedere usando l'account Microsoft associato alla sottoscrizione di Azure.
 1. Nella pagina iniziale del portale di Azure, passare alla casella di ricerca superiore e digitare **Document Intelligence**, quindi premere **Invio**.
-1. Nella pagina **Informazioni sui documenti** selezionare **Crea**.
+1. Nella pagina **Informazioni sui documenti** selezionare **Crea Informazioni sui documenti**.
 1. Nella pagina **Crea Document Intelligence**, configurare la risorsa usando gli elementi seguenti:
     - **Sottoscrizione**: sottoscrizione di Azure.
     - **Gruppo di risorse**: Selezionare o creare un gruppo di risorse con un nome univoco, ad esempio *DocIntelligenceResources*.
@@ -81,7 +81,7 @@ Sono state fornite applicazioni sia per C# che per Python, oltre a un file PDF d
     **Python**:
 
     ```powershell
-    pip install azure-ai-formrecognizer==3.3.0
+    pip install azure-ai-formrecognizer==3.3.3
     ```
 
 ## Aggiungere il codice per usare il servizio Azure Document Intelligence

@@ -126,9 +126,10 @@ Ora si eseguirà il training del modello usando i file caricati nell’account d
         - Selezionare *Continua*.
     - Selezionare *Crea progetto*.
 
-1. Dopo aver creato il progetto, selezionare **Eseguire il training** per eseguire il training del modello. Usare le configurazioni seguenti:
+1. Dopo aver creato il progetto, in alto a destra nella schermata selezionare **Eseguire il training** per eseguire il training del modello. Usare le configurazioni seguenti:
     - **ID modello**: *Specificare un nome univoco globale: è necessario il nome dell’ID modello nel passaggio successivo*. 
     - **Modalità di compilazione**: Modello.
+1. Selezionare **Vai a Modelli**.
 1. Il training può richiedere del tempo. Al termine della procedura verrà visualizzata una notifica.
 
 ## Testare il modello personalizzato di Informazioni sui documenti
@@ -144,7 +145,7 @@ Ora si eseguirà il training del modello usando i file caricati nell’account d
     **Python**:
 
     ```powershell
-    pip install azure-ai-formrecognizer==3.3.0
+    pip install azure-ai-formrecognizer==3.3.3
     ```
 
 1. In Visual Studio Code, nella cartella **Labfiles/02-custom-document-intelligence**, selezionare la lingua in uso. Modificare il file di configurazione, **appsettings.json** o **.env**, a seconda della preferenza di lingua, con i valori seguenti:
