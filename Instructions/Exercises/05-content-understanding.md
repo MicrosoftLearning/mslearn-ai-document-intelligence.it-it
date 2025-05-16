@@ -6,202 +6,195 @@ lab:
 
 # Analizzare i contenuti con Comprensione del Contenuto di Azure AI
 
-In questo esercizio, viene utilizzato il Portale Azure AI Foundry per creare un progetto di comprensione dei contenuti in grado di estrarre informazioni dai moduli delle polizze assicurative di viaggio. Si testerà quindi l'analizzatore del contenuto nel Portale Fonderia Azure AI e lo si userà tramite l'interfaccia REST di comprensione dei contenuti.
+In questo esercizio, verrà utilizzato il portale Fonderia Azure AI per creare un progetto di comprensione dei contenuti in grado di estrarre informazioni dalle fatture. Si testerà quindi l'analizzatore del contenuto nel Portale Fonderia Azure AI e lo si userà tramite l'interfaccia REST di comprensione dei contenuti.
 
 Questo esercizio richiede circa **30** minuti.
 
-## Creare un progetto di comprensione dei contenuti
+## Creare un progetto Fonderia Azure AI
 
-Per iniziare, usare il portale Azure AI Foundry per creare un progetto di comprensione dei contenuti.
+Per iniziare, creare un progetto Fonderia Azure AI.
 
-1. In un Web browser, aprire il [Portale Fonderia Azure AI](https://ai.azure.com) su `https://ai.azure.com` e accedere usando le credenziali di Azure.
-
-    La home page del portale di Azure AI Foundry si presenta come l'immagine seguente:
+1. In un Web browser, aprire il [Portale Fonderia Azure AI](https://ai.azure.com) su `https://ai.azure.com` e accedere usando le credenziali di Azure. Chiudere i suggerimenti o i riquadri di avvio rapido aperti la prima volta che si accede e, se necessario, usare il logo **Fonderia Azure AI** in alto a sinistra per passare alla home page, simile all'immagine seguente:
 
     ![Screenshot del portale di Azure AI Foundry.](../media/ai-foundry-portal.png)
 
-1. Nella sezione **Ricerca rapida** della home page, nella parte inferiore, selezionare **Comprensione dei contenuti**.
-1. Nella pagina **Comprensione dei contenuti** selezionare il pulsante **Crea nuovo progetto di comprensione dei contenuti**.
-1. Nel passaggio **Panoramica del progetto** impostare le proprietà seguenti per il progetto, quindi selezionare **Avanti**:
-    - **Nome progetto**: `travel-insurance`
-    - **Descrizione**: `Insurance policy data extraction`
-    - **Hub**: creare un nuovo hub
-1. Nel passaggio **Crea un hub** impostare le proprietà seguenti e quindi selezionare **Avanti**:
-    - **Risorsa dell'hub di Azure per intelligenza artificiale**: `content-understanding-hub`
-    - **Sottoscrizione di Azure**: *selezionare la sottoscrizione di Azure*
-    - **Gruppo di risorse**: *creare un nuovo gruppo di risorse con un nome univoco*
-    - **Posizione**: *selezionare una delle posizioni disponibili*
-    - **Servizi di Azure AI**: *creare una nuova risorsa dei Servizi di Azure AI con un nome appropriato*
-1. Nel passaggio **Impostazioni di archiviazione** specificare un nuovo account di archiviazione dell'hub IA e selezionare **Avanti**.
-1. Nella pagina **Rivedi** selezionare **Crea progetto**. Attendere quindi che il progetto e le relative risorse vengano create.
+1. Nella home page, selezionare **+ Crea progetto**.
+1. Nella procedura guidata **Crea un progetto**, immettere un nome valido per il progetto e, se viene suggerito un hub esistente, selezionare l'opzione per crearne uno nuovo. Successivamente, esaminare le risorse Azure che verranno create automaticamente per supportare l'hub e il progetto.
+1. Selezionare **Personalizza** e specificare le impostazioni seguenti per l'hub:
+    - **Nome hub**: *un nome valido per l'hub*
+    - **Sottoscrizione**: *la sottoscrizione di Azure usata*
+    - **Gruppo di risorse**: *creare o selezionare un gruppo di risorse*
+    - **Posizione**: selezionare una delle aree seguenti\*
+        - Stati Uniti occidentali
+        - Svezia centrale
+        - Australia orientale
+    - **Connettere Servizi di Azure AI o Azure OpenAI**: *Creare una nuova risorsa di Servizi di AI*
+    - **Connettere Azure AI Search**: *creare una nuova risorsa di Azure AI Search con un nome univoco*
 
-    Quando il progetto è pronto, verrà aperto nella pagina **Definisci schema**.
+    > \*Al momento della stesura di questo articolo, la comprensione dei contenuti di Azure AI è disponibile solo in queste aree.
 
-    ![Screenshot di un nuovo progetto di comprensione dei contenuti.](../media/content-understanding-project.png)
+1. Selezionare **Avanti** per esaminare la configurazione. Quindi selezionare **Crea** e attendere il completamento del processo.
+1. Quando viene creato il progetto, chiudere tutti i suggerimenti visualizzati e rivedere la pagina del progetto nel portale Fonderia di Azure AI, che dovrebbe essere simile all'immagine seguente:
 
-## Verificare le risorse di Azure
+    ![Screenshot dei dettagli di un progetto di Azure AI nel portale Fonderia di Azure AI.](../media/ai-foundry-project.png)
 
-Quando è stato creato l'hub IA e il progetto, sono state create varie risorse nella sottoscrizione di Azure per supportare il progetto.
+## Creare un analizzatore di Comprensione dei contenuti
 
-1. In una nuova scheda del browser, aprire il [portale di Azure](https://portal.azure.com) su `https://portal.azure.com`, accedendo con le credenziali di Azure.
-1. Passare al gruppo di risorse creato per l'hub e notare le risorse di Azure create.
+Verrà creato un analizzatore in grado di estrarre informazioni dalle fatture. È possibile iniziare definendo uno schema basato su un esempio di fattura.
 
-    ![Screenshot delle risorse di Azure.](../media/azure-resources.png)
+1. In una nuova scheda del browser, scaricare il modulo di esempio [invoice-1234.pdf](https://github.com/microsoftlearning/mslearn-ai-document-intelligence/raw/main/Labfiles/05-content-understanding/forms/invoice-1234.pdf) da `https://github.com/microsoftlearning/mslearn-ai-document-intelligence/raw/main/Labfiles/05-content-understanding/forms/invoice-1234.pdf` e salvarlo in una cartella locale.
+1. Tornare alla scheda contenente la pagina iniziale del progetto Fonderia Azure AI e, nel riquadro di spostamento a sinistra, selezionare **Comprensione dei contenuti**.
+1. Nella pagina **Comprensione dei contenuti**, selezionare la scheda **Analizzatore personalizzato** in alto.
+1. Nella pagina dell'analizzatore personalizzato di Comprensione dei contenuti, selezionare **+ Crea** e creare un'attività con le impostazioni seguenti:
+    - **Nome attività**: analisi della fattura
+    - **Descrizione**: estrarre dati da una fattura
+    - **Connessione ai servizi di Azure AI**: *la risorsa dei servizi di Azure AI nell'hub di Fonderia Azure AI*
+    - **Account di archiviazione BLOB di Azure**: *l'account di archiviazione predefinito nell'hub di Fonderia Azure AI*
+1. Attendere la creazione dell'attività.
 
-## Definire uno schema personalizzato
+    > **Suggerimento**: se si verifica un errore di accesso alla memoria, attendere un minuto e riprovare.
 
-Si creerà un analizzatore in grado di estrarre informazioni dai moduli di assicurazione di viaggio. Si inizierà definendo uno schema basato su un modulo di esempio.
+1. Nella pagina **Definisci schema**, caricare il file **invoice-1234.pdf** appena scaricato.
+1. Selezionare il modello **Analisi fattura** e quindi **Crea**.
 
-1. Scaricare il modulo di esempio [train-form.pdf](https://github.com/microsoftlearning/mslearn-ai-document-intelligence/raw/main/Labfiles/05-content-understanding/forms/train-form.pdf) da `https://github.com/microsoftlearning/mslearn-ai-document-intelligence/raw/main/Labfiles/05-content-understanding/forms/train-form.pdf` e salvarlo in una cartella locale.
-1. Tornare alla scheda del browser contenente il progetto di comprensione dei contenuti e nella pagina **Definisci schema** caricare il file **train-form.pdf** appena scaricato.
-1. Selezionare il modello di **analisi dei documenti** e quindi selezionare **Crea**.
+    Il modello *Analisi delle fatture* include i campi comuni contenuti nelle fatture. È possibile usare l'editor schemi per eliminare i campi suggeriti non necessari e aggiungere quelli personalizzati.
 
-    L'editor dello schema consente di definire i campi dati da estrarre dal modulo, visualizzato a destra. Il modulo è simile al seguente:
-
-    ![Screenshot di un modulo assicurativo di esempio.](../media/train-form.png)
-
-    I campi dati nel modulo sono costituiti da:
-    
-    - Raccolta di dettagli personali relativi al titolare della polizza.
-    - Raccolta di dettagli relativi al viaggio per il quale è richiesta l'assicurazione.
-    - Firma e data
-
-    Si inizierà aggiungendo un campo che rappresenta i dettagli personali in forma di tabella, in cui verranno quindi definiti i sottocampi per i singoli dettagli.
-
-1. Selezionare **+Aggiungi nuovo campo** e creare un nuovo campo con i valori seguenti:
-    - **Nome campo**: `PersonalDetails`
-    - **Descrizione campo**: `Policyholder information`
-    - **Tipo valore**: tabella
-1. Selezionare **Salva modifiche** (&#10004;) e notare che viene creato automaticamente un nuovo sottocampo.
-1. Configurare il nuovo sottocampo con i valori seguenti:
-    - **Nome campo**: `PolicyholderName`
-    - **Descrizione campo**: `Policyholder name`
-    - **Tipo valore**: stringa
-    - **Metodo**: estrarre
-1. Usare il pulsante **+ Aggiungi nuovo sottocampo** per aggiungere i sottocampi aggiuntivi seguenti:
-
-    | Nome del campo | Descrizione campo | Tipo di valore | metodo |
-    |--|--|--|--|
-    | `StreetAddress` | `Policyholder address` | String | Estrazione |
-    | `City` | `Policyholder city` | String | Estrazione |
-    | `PostalCode` | `Policyholder post code` | String | Estrazione |
-    | `CountryRegion` | `Policyholder country or region` | String | Estrazione |
-    | `DateOfBirth` | `Policyholder birth date` | Data | Estrazione |
-
-1. Dopo aver aggiunto tutti i sottocampi dei dettagli personali, usare il pulsante **Indietro** per tornare al livello superiore dello schema.
-1. Aggiungere un nuovo campo *tabella* denominato **`TripDetails`** per rappresentare i dettagli del viaggio assicurato. Aggiungere quindi i sottocampi seguenti:
+1. Nell'elenco dei campi suggeriti, selezionare **BillingAddress**. Questo campo non è necessario per il formato di fattura caricato, quindi usare l'icona **Elimina campo** (**&#128465;**) visualizzata per eliminarlo.
+1. Eliminare ora i seguenti campi suggeriti, che non sono necessari:
+    - BillingAddressRecipient
+    - CustomerAddressRecipient
+    - CustomerId
+    - CustomerTaxId
+    - DueDate
+    - InvoiceTotal
+    - PaymentTerm
+    - PreviousUnpaidBalance
+    - PurchaseOrder
+    - RemittanceAddress
+    - RemittanceAddressRecipient
+    - ServiceAddress
+    - ServiceAddressRecipient
+    - ShippingAddress
+    - ShippingAddressRecipient
+    - TotalDiscount
+    - VendorAddressRecipient
+    - VendorTaxId
+    - TaxDetails
+1. Usare il pulsante **+ Aggiungi nuovo campo** per aggiungere i campi seguenti:
 
     | Nome del campo | Descrizione campo | Tipo di valore | metodo |
     |--|--|--|--|
-    | `DestinationCity` | `Trip city` | String | Estrazione |
-    | `DestinationCountry` | `Trip country or region` | String | Estrazione |
-    | `DepartureDate` | `Date of departure` | Data | Estrazione |
-    | `ReturnDate` | `Date of return` | Data | Estrazione |
+    | `VendorPhone` | `Vendor telephone number` | String | Estrazione |
+    | `ShippingFee` | `Fee for shipping` | Numero | Estrazione |
 
-1. Tornare al livello superiore dello schema e aggiungere i due campi individuali seguenti:
+1. Verificare che lo schema completato sia simile al seguente e selezionare **Salva**.
+    ![Screenshot di uno schema per una fattura.](../media/invoice-schema.png)
 
-    | Nome del campo | Descrizione campo | Tipo di valore | metodo |
-    |--|--|--|--|
-    | `Signature` | `Policyholder signature` | String | Estrazione |
-    | `Date` | `Date of signature` | Data | Estrazione |
+1. Nella pagina **Test dell'analizzatore**, se l'analisi non inizia automaticamente, selezionare **Esegui analisi**. Attendere quindi il completamento dell'analisi ed esaminare i valori di testo nella fattura identificati come corrispondenti ai campi nello schema.
+1. Esaminare i risultati dell'analisi, che dovrebbero essere simili ai seguenti:
 
-1. Verificare che lo schema completato sia simile al seguente e quindi salvarlo.
+    ![Screenshot dei risultati del test dell'analizzatore.](../media/analysis-results.png)
 
-    ![Screenshot dello schema di un documento.](../media/completed-schema.png)
-
-1. Nella pagina **Test dell'analizzatore**, se l'analisi non inizia automaticamente, selezionare **Esegui analisi**. Attendere quindi il completamento dell'analisi ed esaminare i valori di testo nel modulo identificati come corrispondenti ai campi nello schema.
-
-    ![Screenshot dei risultati del test dell'analizzatore.](../media/test-analyzer.png)
-
-    Il servizio di comprensione dei contenuti deve aver identificato correttamente il testo che corrisponde ai campi nello schema. In caso contrario, è possibile usare la pagina **Dati etichetta** per caricare un altro modulo di esempio e identificare in modo esplicito il testo corretto per ogni campo.
+1. Visualizzare i dettagli dei campi identificati nel riquadro **Campi**, quindi visualizzare la scheda **Risultato** per visualizzare la rappresentazione JSON.
 
 ## Creare e testare un analizzatore
 
-Ora che è stato eseguito il training di un modello per estrarre campi dai moduli assicurativi, è possibile creare un analizzatore da usare con moduli simili.
+Ora che è stato eseguito il training di un modello per estrarre i campi dalle fatture, è possibile creare un analizzatore da usare con moduli simili.
 
-1. Selezionare la pagina **Crea analizzatore** nel pannello di navigazione a sinistra.
-1. Selezionare **+ Crea analizzatore** e creare un nuovo analizzatore con le proprietà seguenti (digitate esattamente come illustrato di seguito):
-    - **Nome**: `travel-insurance-analyzer`
-    - **Descrizione**: `Insurance form analyzer`
+1. Selezionare la pagina **Crea analizzatore**, quindi selezionare **+ Crea analizzatore** e creare un nuovo analizzatore con le seguenti proprietà (digitate esattamente come illustrato di seguito):
+    - **Nome**: `contoso-invoice-analyzer`
+    - **Descrizione**: `Contoso invoice analyzer`
 1. Attendere che il nuovo analizzatore sia pronto (usare il pulsante **Aggiorna** per controllare).
-1. Scaricare [test-form.pdf](https://github.com/microsoftlearning/mslearn-ai-document-intelligence/raw/main/Labfiles/05-content-understanding/forms/test-form.pdf) da `https://github.com/microsoftlearning/mslearn-ai-document-intelligence/raw/main/Labfiles/05-content-understanding/forms/test-form.pdf` e salvarlo in una cartella locale.
-1. Tornare alla pagina **Crea analizzatore** e selezionare il collegamento **travel-insurance-analyzer**. Verranno visualizzati i campi definiti nello schema dell'analizzatore.
-1. Nella pagina **travel-insurance-analyzer** selezionare **Test**.
-1. Usare il pulsante **+ Carica file di test** per caricare **test-form.pdf** ed eseguire l'analisi per estrarre i dati dei campi dal modulo di test.
-
-    ![Screenshot dei risultati dell'analisi del modulo di test.](../media/test-form-results.png)
-
-1. Visualizzare la scheda **Risultato** per visualizzare i risultati in formato JSON restituiti dall'analizzatore. Nell'attività successiva verrà utilizzata l'API REST di comprensione dei contenuti per inviare un modulo all'analizzatore e restituire i risultati in questo formato.
-1. Chiudere la pagina **travel-insurance-analyzer**.
+1. Scaricare il file [invoice-1235.pdf](https://github.com/microsoftlearning/mslearn-ai-document-intelligence/raw/main/Labfiles/05-content-understanding/forms/invoice-1235.pdf) da `https://github.com/microsoftlearning/mslearn-ai-document-intelligence/raw/main/Labfiles/05-content-understanding/forms/invoice-1235.pdf` e salvarlo in una cartella locale.
+1. Tornare alla pagina **Crea analizzatore** e selezionare il collegamento **contoso-invoice-analyzer**. Verranno visualizzati i campi definiti nello schema dell'analizzatore.
+1. Nella pagina **contoso-invoice-analyzer**, selezionare la scheda **Test**.
+1. Usare il pulsante **+ Carica file di test** per caricare il file **invoice-1235.pdf** ed eseguire l'analisi per estrarre i dati di campo dal modulo di test.
+1. Esaminare i risultati del test e verificare che l'analizzatore abbia estratto i campi corretti dalla fattura di test.
+1. Chiudere la pagina **contoso-invoice-analyzer***.
 
 ## Usare l'API REST Comprensione dei contenuti
 
 Dopo aver creato un analizzatore, è possibile usarlo da un'applicazione client tramite l'API REST di comprensione dei contenuti.
 
-1. Passare alla scheda del browser contenente il portale di Azure (o aprire `https://portal.azure.com` in una nuova scheda se è stata chiusa).
-1. Nel gruppo di risorse per l'hub di comprensione dei contenuti, aprire la risorsa di **Servizi di Azure AI**.
-1. Nella sezione **Chiavi ed endpoint** sulla pagina **Panoramica**, visualizzare la scheda **Comprensione dei contenuti**.
+1. Nell'area **Dettagli di progetto** prendere nota della **stringa di connessione del progetto**. Questa stringa di connessione verrà usata per connettersi al progetto in un'applicazione client.
+1. Aprire una nuova scheda del browser (mantenendo aperto il Portale Fonderia Azure AI nella scheda esistente). In una nuova scheda del browser, passare al [portale di Azure](https://portal.azure.com) su `https://portal.azure.com`, accedendo con le credenziali di Azure se richiesto.
 
-    ![Screenshot delle chiavi e dell'endpoint per la comprensione dei contenuti.](../media/keys-and-endpoint.png)
+    Chiudere eventuali notifiche di benvenuto per visualizzare la pagina iniziale del portale di Azure.
 
-    Sarà necessario l'endpoint di comprensione dei contenuti e una delle chiavi per connettersi all'analizzatore da un'applicazione client.
+1. Usare il pulsante **[\>_]** a destra della barra di ricerca, nella parte superiore della pagina, per aprire una nuova sessione di Cloud Shell nel portale di Azure selezionando un ambiente ***PowerShell*** senza archiviazione nell'abbonamento.
 
-1. Usare il pulsante **[\>_]** a destra della barra di ricerca, nella parte superiore della pagina, per aprire una nuova sessione di Cloud Shell nel portale di Azure selezionando un ambiente ***PowerShell***. Cloud Shell fornisce un'interfaccia della riga di comando in un riquadro nella parte inferiore del portale di Azure, come illustrato di seguito:
-
-    ![Screenshot del portale di Azure con un riquadro Cloud Shell](../media/cloud-shell.png)
+    Cloud Shell fornisce un'interfaccia della riga di comando in un riquadro nella parte inferiore del portale di Azure. È possibile ridimensionare o ingrandire questo riquadro per ottimizzare l'esperienza d'uso.
 
     > **Nota**: se in precedenza è stata creata una sessione Cloud Shell che usa un ambiente *Bash*, passare a ***PowerShell***.
 
-1. Si noti che è possibile ridimensionare Cloud Shell trascinando la barra di separazione nella parte superiore del riquadro o usando le icone **&#8212;**, **&#10530;** e **X** nell'angolo in alto a destra del riquadro per ridurre a icona, ingrandire o chiudere il riquadro. Per altre informazioni sull'uso di Azure Cloud Shell, vedere la [documentazione su Azure Cloud Shell](https://docs.microsoft.com/azure/cloud-shell/overview).
 1. Nella barra degli strumenti di Cloud Shell scegliere **Vai alla versione classica** dal menu **Impostazioni**. Questa operazione è necessaria per usare l'editor di codice.
 
-1. Nel riquadro PowerShell immettere i comandi seguenti per clonare il repository GitHub per questo esercizio:
+    **<font color="red">Verificare di passare alla versione classica di Cloud Shell prima di continuare.</font>**
+
+1. Nel riquadro Cloud Shell immettere i comandi seguenti per clonare il repository GitHub contenente i file di codice per questo esercizio (digitare il comando o copiarlo negli Appunti e quindi fare clic con il pulsante destro del mouse nella riga di comando e incollarlo come testo normale):
 
     ```
-    rm -r mslearn-ai-doc -f
-    git clone https://github.com/microsoftlearning/mslearn-ai-document-intelligence mslearn-ai-doc
+   rm -r mslearn-ai-foundry -f
+   git clone https://github.com/microsoftlearning/mslearn-ai-document-intelligence mslearn-ai-doc
     ```
 
-1. Dopo aver clonato il repository, passare alla cartella **mslearn-ai-doc/Labfiles/05-content-understanding/code**:
+    > **Suggerimento**: quando vengono incollati i comandi in CloudShell, l'ouput può richiedere una grande quantità di buffer dello schermo. È possibile cancellare la schermata immettendo il `cls` comando per rendere più semplice concentrarsi su ogni attività.
+
+1. Dopo aver clonato il repository, passare alla cartella contenente i file di codice dell'applicazione:
 
     ```
-    cd mslearn-ai-doc/Labfiles/05-content-understanding/code
+   cd mslearn-ai-doc/Labfiles/05-content-understanding/code
+   ls -a -l
     ```
 
-1. Immettere il comando seguente per modificare il file di codice Python **analyze_doc.py** fornito:
+1. Nel riquadro della riga di comando di Cloud Shell, immettere il comando seguente per installare le librerie che verranno utilizzate:
 
     ```
-    code analyze_doc.py
+   python -m venv labenv
+   ./labenv/bin/Activate.ps1
+   pip install dotenv azure-identity azure-ai-projects
+    ```
+
+1. Immettere il comando seguente per modificare il file di configurazione fornito:
+
+    ```
+   code .env
+    ```
+
+    Il file viene aperto in un editor di codice.
+
+1. Nel file di codice, sostituire il segnaposto **YOUR_PROJECT_CONNECTION_STRING** con la stringa di connessione del progetto (copiata dalla pagina **Panoramica** del progetto nel portale Fonderia Azure AI) e assicurarsi che **ANALYZER** sia impostato sul nome assegnato all'analizzatore (che dovrebbe essere *contoso-invoice-analyzer*)
+1. Dopo aver sostituito i segnaposto, nell'editor di codice, usare il comando **CTRL+S** per salvare le modifiche e quindi usare il comando **CTRL+Q** per chiudere l'editor di codice mantenendo aperta la riga di comando di Cloud Shell.
+
+1. Nella riga di comando di Cloud Shell, immettere il seguente comando per modificare il file di codice Python **analyze_invoice.py** fornito:
+
+    ```
+    code analyze_invoice.py
     ```
     Il file di codice Python viene aperto in un editor di codice:
 
-    ![Screenshot di un editor di codice con codice Python.](../media/code-editor.png)
-
-1. Nel file di codice sostituire il segnaposto **\<CONTENT_UNDERSTANDING_ENDPOINT\>** con l'endpoint di comprensione dei contenuti e il segnaposto **\<CONTENT_UNDERSTANDING_KEY\>** con una delle chiavi per la risorsa di Servizi di Azure AI.
-
-    > **Suggerimento**: è necessario ridimensionare o ridurre a icona la finestra di Cloud Shell per copiare l'endpoint e la chiave dalla pagina della risorsa di Servizi di Azure AI nel portale di Azure. Prestare attenzione a non *chiudere* Cloud Shell, altrimenti occorrerà ripetere i passaggi precedenti.
-
-1. Dopo aver sostituito i segnaposto, usare il comando **CTRL+S** per salvare le modifiche e quindi esaminare il codice completato, che:
-    - Invia una richiesta HTTP POST all'endpoint di comprensione dei contenuti, indicando a **travel-insurance-analyzer** di analizzare un modulo in base al relativo URL.
+1. Esaminare il codice che:
+    - Identifica il file della fattura da analizzare, con un valore predefinito di **invoice-1236.pdf**.
+    - Recupera l'endpoint e la chiave della risorsa dei servizi di Azure AI dal progetto.
+    - Invia una richiesta HTTP POST all'endpoint di comprensione dei contenuti, indicando di analizzare l'immagine.
     - Controlla la risposta dell'operazione POST per recuperare un ID per l'operazione di analisi.
     - Invia ripetutamente una richiesta HTTP GET al servizio di comprensione dei contenuti fino a quando l'operazione non è più in esecuzione.
-    - Se l'operazione ha avuto esito positivo, visualizza la risposta JSON.
+    - Se l'operazione ha esito positivo, esegue l'analisi della risposta JSON e visualizza i valori recuperati
 1. Usare il comando **CTRL+Q** per chiudere l'editor di codice mantenendo aperta la riga di comando di Cloud Shell.
-1. Nel riquadro della riga di comando di Cloud Shell immettere il comando seguente per installare la libreria delle **richieste** Python (usata nel codice):
+1. Nel riquadro della riga di comando di Cloud Shell immettere il comando seguente per eseguire il codice Python:
 
     ```
-    pip install requests
+    python analyze_invoice.py invoice-1236.pdf
     ```
 
-1. Dopo aver installato la libreria, nel riquadro della riga di comando di Cloud Shell immettere il comando seguente per eseguire il codice Python:
+1. Esaminare l'output del programma.
+1. Usare il seguente comando per eseguire il programma con una fattura diversa:
 
     ```
-    python analyze_doc.py
+    python analyze_invoice.py invoice-1235.pdf
     ```
 
-1. Esaminare l'output del programma, che include i risultati JSON dell'analisi del documento.
-
-    > **Suggerimento**: il buffer dello schermo nella console di Cloud Shell potrebbe non essere sufficientemente grande da visualizzare l'intero output. Se si vuole esaminare l'intero output, eseguire il programma usando il comando `python analyze_doc.py > output.txt`. Al termine del programma, usare quindi il comando `code output.txt` per aprire l'output in un editor di codice.
+    > **Suggerimento**: nella cartella del codice sono presenti tre file di fattura utilizzabili (invoice-1234.pdf, invoice-1235.pdf e invoice-1236.pdf). 
 
 ## Eseguire la pulizia
 
