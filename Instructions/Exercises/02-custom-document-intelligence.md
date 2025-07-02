@@ -97,11 +97,7 @@ Si useranno i moduli di esempio come questo per eseguire il training di un model
 1. Nel terminale, per la cartella **Labfiles/02-custom-document-intelligence**, immettere il comando seguente per eseguire lo script:
 
     ```PowerShell
-    $currentdir=(Get-Item .).FullName
-    cd ..
     ./setup.cmd
-    cd $currentdir
-
     ```
 
 1. Al termine dello script, riesaminare l’output visualizzato.
