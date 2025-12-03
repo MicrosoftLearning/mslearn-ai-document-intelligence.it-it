@@ -1,1 +1,3 @@
+**⚠️ This GitHub repo will retire on 30th December 2025.** 
+
 > **NOTA**: Questo repository è in fase di archiviazione e non viene più gestito. Visitare il percorso di apprendimento [Sviluppare soluzioni di estrazione delle informazioni di intelligenza artificiale](https://learn.microsoft.com/training/paths/ai-extract-information/) e il [repository del lab associato](https://github.com/MicrosoftLearning/mslearn-ai-information-extraction) o la [documentazione di Fonderia Azure AI](https://learn.microsoft.com/azure/ai-foundry/)
